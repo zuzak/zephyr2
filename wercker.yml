@@ -24,7 +24,7 @@ build:
 
         - script:
             name: generate pages
-            code:
+            code: |
                 export USE_COVERAGE=1
                 ./node_modules/.bin/mocha test -R htmlcov 
                 git add coverage.html
