@@ -33,6 +33,7 @@ build:
                 git config user.name "werckerbot"
                 git commit -m "update coverage for $WERCKER_BUILD_URL"
                 git push -f "https://$WERCKER_PAGES_TOKEN@github.com/$WERCKER_GIT_OWNER/$WERCKER_GIT_REPOSITORY.git" gh-pages
+
         - script:
             name: send coverage to coveralls
             code: |
