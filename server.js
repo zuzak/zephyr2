@@ -1,8 +1,9 @@
 var cluster = require('cluster')
 
-process.env.USE_COVERAGE
-  ? var appLocation = './app'
-  : var appLocation = './app-cov'
+var appLocation = './app'
+if (process.env.USE_COVERAGE) {
+  var appLocation = './app-cov'
+}
 
 if (cluster.isMaster) {
   var cpuCount = require('os').cpus().length;
