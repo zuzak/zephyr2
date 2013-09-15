@@ -16,6 +16,7 @@ build:
             code: |
                 npm start &
                 npm test
+
     after-steps:
         - script:
             name: instrument code
