@@ -16,7 +16,7 @@ build:
             code: |
                 npm start &
                 npm test
-
+    after-steps:
         - script:
             name: instrument code
             code: |
@@ -26,7 +26,7 @@ build:
             name: generate pages
             code: |
                 export USE_COVERAGE=1
-                ./node_modules/.bin/mocha test -R htmlcov 
+                ./node_modules/.bin/mocha -R html-cov 
                 git add coverage.html
                 git commit -m "update coverage for $WERCKER_BUILD_URL"
                 git config user.email "pleaseemailus@wercker.com"
