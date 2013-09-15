@@ -1,4 +1,4 @@
-#
+# ....
 # This is the configuration file for a Wercker build.
 # Wercker is a continuous integration platform similar to Travis
 #
@@ -27,13 +27,22 @@ build:
             name: generate pages
             code: |
                 export USE_COVERAGE=1
-                ./node_modules/.bin/mocha -R html-cov > coverage.html
-                git add coverage.html
-                git config user.email "pleaseemailus@wercker.com"
+                ./node_modules/.bin/mocha -R html-cov app-cov/* > coverage-new.html
+                git config user.email "pleasemailus@wercker.com"
                 git config user.name "werckerbot"
-                git commit -m "update coverage for $WERCKER_BUILD_URL"
+                git checkout gh-pages
+                ls
+                cp coverage-new.html coverage.html
+                git add coverage.html
+                git commit -m "update coverage HTML file" -m "This commit updates the coverage for $WERCKER_GIT_BRANCH commit $WERCKER_GIT_COMMIT." -m "$WERCKER_BUILD_URL" | cat
                 git push -f "https://$WERCKER_PAGES_TOKEN@github.com/$WERCKER_GIT_OWNER/$WERCKER_GIT_REPOSITORY.git" gh-pages
-
+                git checkout master
+        - wouter/irc-notify:
+            name: inform IRC
+            server: irc.freenode.net
+            nickname: wercker
+            port: 6667
+            channel: oaosidl
         - script:
             name: send coverage to coveralls
             code: |
@@ -43,10 +52,3 @@ build:
                 export COVERALLS_GIT_COMMIT=$WERCKER_GIT_COMMIT
                 export USE_COVERAGE=1
                 ./node_modules/.bin/mocha test -R mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js
-        - zuzak/irc-notify-zuzak:
-            properties:
-            server: irc.freenode.net
-            port: 6667
-            nickname: wercker
-            channel: oaosidl
-            nojoin: true
