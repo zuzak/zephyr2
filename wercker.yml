@@ -1,3 +1,8 @@
+#
+# This is the configuration file for a Wercker build.
+# Wercker is a continuous integration platform similar to Travis
+#
+# http://wercker.com
 box: zuzak/nodebox
 build:
     steps:
@@ -13,16 +18,7 @@ build:
                 npm test
 
         - script:
-            name: install jscoverage
-            code: |
-                git clone git://github.com/visionmedia/node-jscoverage
-                cd node-jscoverage
-                ./configure
-                make
-                sudo make install
-
-        - script:
-            name: generate jscoverage
+            name: instrument code
             code: |
                 jscoverage app app-cov
 
