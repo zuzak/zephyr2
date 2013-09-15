@@ -24,7 +24,6 @@ build:
         - script:
             name: generate jscoverage
             code: |
-                cd ..
                 jscoverage app app-cov
 
         - script:
