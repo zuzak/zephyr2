@@ -33,10 +33,19 @@ build:
                 git add coverage.html
                 git stash
                 git checkout gh-pages
+                rm coverage.html
                 git stash pop
                 git commit -m "update coverage for $WERCKER_BUILD_URL"
                 git push -f "https://$WERCKER_PAGES_TOKEN@github.com/$WERCKER_GIT_OWNER/$WERCKER_GIT_REPOSITORY.git" gh-pages
                 git checkout master
+
+        - zuzak/irc-notify-zuzak:
+            properties:
+            server: irc.freenode.net
+            port: 6667
+            nickname: wercker
+            channel: oaosidl
+            nojoin: true
 
         - script:
             name: send coverage to coveralls
@@ -47,10 +56,3 @@ build:
                 export COVERALLS_GIT_COMMIT=$WERCKER_GIT_COMMIT
                 export USE_COVERAGE=1
                 ./node_modules/.bin/mocha test -R mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js
-        - zuzak/irc-notify-zuzak:
-            properties:
-            server: irc.freenode.net
-            port: 6667
-            nickname: wercker
-            channel: oaosidl
-            nojoin: true
