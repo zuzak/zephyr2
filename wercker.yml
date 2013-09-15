@@ -28,7 +28,7 @@ build:
             code: |
                 export USE_COVERAGE=1
                 ./node_modules/.bin/mocha -R html-cov > coverage.html
-                git config user.email "pleaseemailus@wercker.com"
+                git config user.email "pleasemailus@wercker.com"
                 git config user.name "werckerbot"
                 git add coverage.html
                 git stash
