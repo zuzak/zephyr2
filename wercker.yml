@@ -43,8 +43,7 @@ build:
                 export COVERALLS_GIT_COMMIT=$WERCKER_GIT_COMMIT
                 export USE_COVERAGE=1
                 ./node_modules/.bin/mocha test -R mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js
-        - step:
-            name: irc-notify-zuzak
+        - irc-notify-zuzak:
             properties:
             server: irc.freenode.net
             port: 6667
