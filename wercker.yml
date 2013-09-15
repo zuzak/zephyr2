@@ -1,0 +1,31 @@
+box: zuzak/nodebox
+build:
+    steps:
+        - script:
+            name: install dependencies
+            code: |
+                npm install
+        - script: run application and test
+            code: |
+                npm start &
+                npm test
+        - script:
+            name: install jscoverage
+            code: |
+                git clone git://github.com/visionmedia/node-jscoverage
+                cd node-jscoverage
+                ./configure
+                make
+                sudo make install
+        - script: generate jscoverage
+            code: |
+                cd ..
+                jscoverage app app-cov
+        - script: run coverage tests
+            code: |
+                export COVERALLS_SERVICE_NAME=wercker
+                export COVERALLS_SERVICE_JOB_ID=$WERCKER_BUILD_ID
+                export COVERALLS_RUN_AT=$WERCKER_MAIN_PIPELINE_STARTED
+                export COVERALLS_GIT_COMMIT=$WERCKER_GIT_COMMIT
+                export USE_COVERAGE=1
+                ./node_modules/.bin/mocha test -R mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js
