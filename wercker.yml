@@ -5,10 +5,13 @@ build:
             name: install dependencies
             code: |
                 npm install
-        - script: run application and test
+
+        - script:
+            name: run application and test
             code: |
                 npm start &
                 npm test
+
         - script:
             name: install jscoverage
             code: |
@@ -17,10 +20,12 @@ build:
                 ./configure
                 make
                 sudo make install
+
         - script: generate jscoverage
             code: |
                 cd ..
                 jscoverage app app-cov
+
         - script: run coverage tests
             code: |
                 export COVERALLS_SERVICE_NAME=wercker
