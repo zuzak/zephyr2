@@ -34,7 +34,7 @@ build:
                 ls
                 cp coverage-new.html coverage.html
                 git add coverage.html
-                if diff coverage.html coverage-new.html >/dev/null ; then git commit -m "update coverage HTML file" -m "This commit updates the coverage for $WERCKER_GIT_BRANCH commit $WERCKER_GIT_COMMIT." -m "$WERCKER_BUILD_URL"
+                if diff coverage.html coverage-new.html >/dev/null ; then git commit -m "update coverage HTML file" -m "This commit updates the coverage for $WERCKER_GIT_BRANCH commit $WERCKER_GIT_COMMIT." -m "$WERCKER_BUILD_URL" ; else echo "no change" ; fi
                 git push -f "https://$WERCKER_PAGES_TOKEN@github.com/$WERCKER_GIT_OWNER/$WERCKER_GIT_REPOSITORY.git" gh-pages
                 git checkout master
 
