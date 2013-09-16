@@ -33,7 +33,7 @@ build:
                 git add coverage.html
                 git stash
                 git checkout gh-pages
-                git rm coverage.html
+                rm coverage.html
                 git stash pop
                 git commit -m "update coverage for $WERCKER_BUILD_URL"
                 git push -f "https://$WERCKER_PAGES_TOKEN@github.com/$WERCKER_GIT_OWNER/$WERCKER_GIT_REPOSITORY.git" gh-pages
