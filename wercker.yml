@@ -27,10 +27,11 @@ build:
             name: generate pages
             code: |
                 export USE_COVERAGE=1
-                ./node_modules/.bin/mocha -R html-cov app-cov/* > coverage.html
+                ./node_modules/.bin/mocha -R html-cov app-cov/* > coverage-new.html
                 git config user.email "pleasemailus@wercker.com"
                 git config user.name "werckerbot"
                 git checkout gh-pages
+                mv coverage-new.html coverage.htm
                 git add coverage.html
                 git commit -m "update coverage for $WERCKER_BUILD_URL"
                 git push -f "https://$WERCKER_PAGES_TOKEN@github.com/$WERCKER_GIT_OWNER/$WERCKER_GIT_REPOSITORY.git" gh-pages
